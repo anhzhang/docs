@@ -1,0 +1,40 @@
+
+\font\tenit=cmti10
+\makeatletter
+
+\renewcommand{\@evenfoot}{\tenit Open MPI Documentation Project \hfill}
+\renewcommand{\@oddfoot}{\tenit \hfill Open MPI User Manual - \today}
+
+\renewcommand{\section}{\@startsection
+  {section}
+  {1}
+  {0em}
+  {\baselineskip}
+  {-1em}
+  {\normalfont\normalsize\bfseries}}
+
+\renewcommand{\subsection}{\@startsection
+  {subsection}
+  {2}
+  {0em}
+  {\baselineskip}
+  {-1em}
+  {\normalfont\normalsize\bfseries}}
+
+\renewcommand{\subsubsection}{\@startsection
+  {subsubsection}
+  {2}
+  {0em}
+  {\baselineskip}
+  {-2em}
+  {\normalfont\normalsize\itshape}}
+
+\makeatother
+
+ 
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "OpenMPIUserManual"
+%%% End: 

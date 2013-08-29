@@ -1,0 +1,66 @@
+\documentclass[12pt,twoside]{book}
+\usepackage{layout}
+\RequirePackage{verbatim}
+\usepackage{hyperref}
+\usepackage{ifpdf}
+\usepackage{etoolbox}
+\usepackage{listings}
+
+\ifpdf 
+   \pdfcompresslevel=9
+   \pdfoutput=1
+                       
+   \usepackage[pdftex]{graphicx}
+   \usepackage[pdftex]{geometry}
+   \usepackage[pdftex]{color}
+   \usepackage{hyperref}
+   \hypersetup{
+     pdftitle={Open MPI User Manual},
+     pdfsubject={Open MPI},
+     pdfauthor={Open MPI},
+     pdfkeywords={MPI,parallel},
+     anchorcolor = {red},
+     colorlinks = {true},
+     %pdfpagemode={FullScreen}
+   }
+\else
+   \usepackage{epsfig}
+   \usepackage{color}
+\fi
+
+\pagestyle{myheadings}
+
+\input{header}
+
+\begin{document}
+
+\title{Open MPI User Manual}
+\author{Open MPI Document Project}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+\include{introduction}
+
+\chapter{Process Management}
+\include{processManagement}
+
+\chapter{Sharing Information Between Processes}
+\include{communication}
+
+\chapter{File Operations}
+\include{fileIO}
+
+\chapter{Tuning and Options}
+\include{tuning}
+
+\end{document}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
