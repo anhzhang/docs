@@ -1,0 +1,8 @@
+*.aux
+*.nav
+*.snm
+*.toc
+*.log
+*.dvi
+*.out
+OpenMPIUserManual.pdf
