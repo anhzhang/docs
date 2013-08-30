@@ -3,6 +3,18 @@
 
 Introduce the basic ideas.
 
+Basic commands include the following: \\
+\begin{itemize}
+\item \texttt{MPI\_Init}
+\item \texttt{MPI\_Comm\_size}
+\item \texttt{MPI\_Comm\_rank}
+\item \texttt{MPI\_Abort}
+\item \texttt{MPI\_Initialized}
+\item \texttt{MPI\_Finalize}
+\end{itemize}
+
+
+
 \lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
   numbersep=5pt, commentstyle=\scriptsize}
 \begin{lstlisting}[caption={Basic Process Information},
@@ -27,8 +39,7 @@ int main(int argc,char **argv)
   mpiResult = MPI_Init (&argc,&argv);
   if(mpiResult!= MPI_SUCCESS)
     {
-      std::cout << "MPI not started. Terminating the process." << std::en
-        dl;
+      std::cout << "MPI not started. Terminating the process." << std::endl;
       MPI_Abort(MPI_COMM_WORLD,mpiResult);
     }
 
@@ -43,15 +54,6 @@ int main(int argc,char **argv)
   MPI_Finalize();
 }
 \end{lstlisting}
-
-Basic commands include the following: \\
-\begin{itemize}
-\item \texttt{MPI\_Init}
-\item \texttt{MPI\_Comm\_size}
-\item \texttt{MPI\_Comm\_rank}
-\item \texttt{MPI\_Abort}
-\item \texttt{MPI\_Initialized}
-\end{itemize}
 
 
 \section{Intermediate}
