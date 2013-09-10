@@ -1,9 +1,26 @@
 
-\chapter{Introduction To MPI}
+\chapter{Introduction To Open MPI}
 
 \section{Open MPI}
 
-Provide an introduction to MPI
+The Message Passing Interface (MPI) is a set of definitions for
+managing multiple processes on a wide variety of computational
+platforms. Open MPI is an implementation of this set of definitions.
+The MPI definition is based on the idea of multiple processes running
+in parallel, and the set of definitions provides a way to create
+multiple processes, initiate multiple processes, and share information
+between them.
+
+At its most basic level Open MPI provides a framework in which the
+computational platform can be treated as a array of independent,
+distributed memory, distributed processor machines. This framework
+allows for the creation of programs that can exploit this assumed
+structure, and it allows for the creation and execution of multiple
+processes that can be thought of as acting independently of one
+another.  Any information shared between the processes must done so
+explicitly making use of the Open MPI library.
+
+Provide a low level introduction to MPI
 
 \section{Getting Started}
 
