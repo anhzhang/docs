@@ -5,6 +5,18 @@
 \renewcommand{\@evenfoot}{\tenit Open MPI Documentation Project \hfill}
 \renewcommand{\@oddfoot}{\tenit \hfill Open MPI User Manual - \today}
 
+\renewcommand{\chapter}{\global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
+
+\renewcommand{\chapter}{\@startsection
+  {chapter}
+  {0}
+  {0em}
+  {-\baselineskip}
+  {0.5\baselineskip}
+  {\normalfont\LARGE\bfseries\MakeUppercase}}
+
 \renewcommand{\section}{\@startsection
   {section}
   {1}
