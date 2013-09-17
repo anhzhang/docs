@@ -1,9 +1,46 @@
 \chapter{Sharing Information Between Processes}
 
+
+The Open MPI libraries provide for a wide variety of approaches for
+sharing information between processes. The details of how the
+information is managed and passed between the physical machines is
+hidden, and the programmer is allowed to focus on the information and
+how to organize it from the point of view of an individual
+process. The ideas shared here are divided into three broad sections.
+
+First the most basic functions that allow the programmer to share data
+are given. The focus in this first section is on synchronous
+(blocking) communication and non-synchronous (non-blocking)
+communication. At the most fundamental level synchronous
+communications will wait until the request to share information is
+complete from the point of view of the processes that send and receive
+the information. Asynchronous communications, on the other hand, do
+not wait, rather they submit the request to either send or receive the
+information and the process is then allowed to go on and perform other
+tasks.
+
+In the second section some of the intermediate ideas and functions are
+given. These build on the basic ideas of synchronous and asynchronous
+communications but explore the details on ways to manage the buffers
+used to shared information sent between processes. This section also
+explores more ways to decide if requests have been completed.
+
+Finally, in the third section some of the more advanced ideas and
+functions are given. This section builds on the second section and
+goes a little further into the organization of buffers. Additional
+details are also explored in how to track the status of a request.
+
+\todo I am not familiar with the broadcast, scatter and gather
+routines. Where do they go?
+
+
 \section{Basic}
 
-I am not familiar with the broadcast, scatter and gather
-routines. Where does that go?
+In this section we introduce the basic ideas of sharing information
+between processes. The focus is on passing messages, and messages can
+be passed using synchronous (blocking) and asynchronous (non-blocking)
+approaches. Each of these two ideas are given in separate subsections
+starting with synchronous methods.
 
 \subsection{Synchronous communications}
 
