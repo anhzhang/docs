@@ -2,18 +2,108 @@
 
 \section{Basic}
 
-\todo Introduce the basic ideas.
 
-Basic commands include the following: \\
-\begin{itemize}
-\item \texttt{MPI\_Init}
-\item \texttt{MPI\_Comm\_size}
-\item \texttt{MPI\_Comm\_rank}
-\item \texttt{MPI\_Abort}
-\item \texttt{MPI\_Initialized}
-\item \texttt{MPI\_Finalize}
-\end{itemize}
+When an MPI execution environment is initiated the requested number of
+processes are created and are distributed in the manner specified by
+the command used to start the processes. For example, if the
+\texttt{mpirun} command is used the options provided will determine
+how many processes to start as well as the different machines to use.
 
+At a minimum a process within the MPI execution environment is
+expected to call two functions. Prior to any other call to the MPI
+library the \texttt{MPI\_Init} function \textit{must} be called. When
+the process will no longer make use of the MPI library the
+\texttt{MPI\_Finalize} function should be called. 
+
+\begin{table}
+  \centering
+
+  \begin{tabular}{ll}
+    \texttt{MPI\_Init}        & \textbf{Required} to initialize an process \\
+    \texttt{MPI\_Comm\_size}  & Determine the number of MPI processes \\
+    \texttt{MPI\_Comm\_rank}  & Determine the number associated with this process. \\
+    \texttt{MPI\_Abort}       & Stops all MPI processes. \\
+    \texttt{MPI\_Initialized} & Determine if \texttt{MPI\_Init} has been called. \\
+    \texttt{MPI\_Finalize}    & Stops the MPI execution environment. \\
+    \texttt{MPI\_Finalized}   & Determine if \texttt{MPI\_Finalize} has been called.
+  \end{tabular}
+\caption{A list of the basic process management routines.}
+\label{tab:basicProcessManagementCommands}
+\end{table}
+
+
+A number of other routines are available that can be used to get basic
+information about the process calling the routines.  These basic
+commands are given in Table
+\ref{tab:basicProcessManagementCommands}. They are used to dynamically
+determine the number of MPI processes that are associated with the
+job, determine a way to differentiate between the different processes
+as an ordered list of processes, and to gracefully end the processes.
+
+\subsection{Initializing and Terminating the MPI Execution
+  Environment}
+
+The routines used to initialize and end an execution environment are
+given here. The commands given are \texttt{MPI\_Init},
+\texttt{MPI\_Abort}, \texttt{MPI\_Initialized}, and
+\texttt{MPI\_Finalize}. The syntax for these routines are given in
+Table \ref{tab:initializeProcessCommands} and are briefly discussed in
+order.
+
+The first MPI library call must be the \texttt{MPI\_Init} command, and
+this command can only be called once. The C/C++ versions of the
+command require two arguments that match the \texttt{argc} and
+\texttt{argv} arguments provided to the main program. The arguments
+are not altered. 
+
+The \texttt{MPI\_Initialized} routine is available to test whether or
+not the \texttt{MPI\_Init} routine has been called.  The
+\texttt{MPI\_Initialized} routine is the only routine in the Open MPI
+library that can be called before the \texttt{MPI\_Init} routine is
+called. \todo{Is the returned value and the flag the same?}
+
+
+\begin{table}
+  \centering
+
+  \begin{tabular}{ll}
+    \texttt{MPI\_Init}        & int MPI\_Init(int *argc, char **argv) \\
+    \texttt{MPI\_Initialized} & int MPI\_Initialized(int *flag) \\
+    \texttt{MPI\_Abort}       & int MPI\_Abort(MPI\_Comm comm, int errorcode) \\
+    \texttt{MPI\_Finalize}    & int MPI\_Finalize() \\
+    \texttt{MPI\_Finalized}   & int MPI\_Finalized(int *flag)
+  \end{tabular}
+\caption{Syntax for the initialization and termination routines.}
+\label{tab:initializeProcessCommands}
+\end{table}
+
+A call to the \texttt{MPI\_Abort} routine is a request to stop all of
+the processes in the execution environment. The system will attempt to
+stop all of the processes within the communicator
+group. \todo{Reference to Communicators} The error code that is passed
+to this routine is passed to the main program and should be handled
+appropriately.
+
+The last MPI routine to be called by a process is the
+\texttt{MPI\_Finalize} routine. This library routine will clean up all
+MPI states. The only routines that can be called after the
+\texttt{MPI\_Finalize} is called are the \texttt{MPI\_Get\_version},
+\texttt{MPI\_Initialized}, and \texttt{MPI\_Finalized} commands.
+
+Prior to calling the \texttt{MPI\_Finalize} routine all pending
+communications should be completed. There is no guarantee that any
+communication request that is pending when the \texttt{MPI\_Finalize}
+routine is executed will be completed. This command will impact all
+processes in an execution environment, and it is left to the
+programmer to determine that any pending requests have been completed
+prior to calling the \texttt{MPI\_Finalize} routine.
+
+
+\subsection{Basic Information}
+
+\todo{Basic information}
+
+\subsection{Examples}
 
 
 \lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
@@ -96,3 +186,9 @@ int main(int argc,char **argv)
 %%% mode: latex
 %%% TeX-master: "OpenMPIUserManual"
 %%% End: 
+
+%  LocalWords:  MPI mpirun Init argc argv errorcode numberstyle mpi
+%  LocalWords:  stepnumber numbersep commentstyle basicstyle fstream
+%  LocalWords:  basicProcess iostream mpic mpiManagementExample cpp
+%  LocalWords:  np localhost mpiResult numtasks hostname len Wtime
+%  LocalWords:  Wtick
