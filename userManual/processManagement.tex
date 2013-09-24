@@ -139,6 +139,11 @@ tasks as well as how the communication patterns will proceed.
 
 \subsection{Examples}
 
+Two examples are given here. The first example, Listing
+\ref{listing:simplestProcess}, is a minimal MPI program. The two
+required routines are called. First the \texttt{MPI\_Init} routine is
+called, and at the end of the program the \texttt{MPI\_Finalize}
+routine is called.
 
 \lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
   numbersep=5pt, commentstyle=\scriptsize}
@@ -171,6 +176,15 @@ int main(int argc,char **argv)
 }
 \end{lstlisting}
 
+The second program, Listing \ref{listing:basicProcess}, provides a
+demonstration on the information that a process can determine about
+the process itself as well as the wider execution group. This program
+is similar to the minimal program given in Listing
+\ref{listing:simplestProcess}. The primary difference is that the
+process makes use of the \texttt{MPI\_Comm\_size} and
+\texttt{MPI\_Comm\_rank} routines to determine how many processes were
+initiated in the execution group and the relative order of the process
+with respect to the other processes.
 
 \lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
   numbersep=5pt, commentstyle=\scriptsize}
