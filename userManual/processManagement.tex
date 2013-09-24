@@ -98,10 +98,44 @@ processes in an execution environment, and it is left to the
 programmer to determine that any pending requests have been completed
 prior to calling the \texttt{MPI\_Finalize} routine.
 
+Finally, the \texttt{MPI\_Finalized} routine allows for a process to
+check to see if the \texttt{MPI\_Finalize} routine has been called by
+a process in the execution environment. This routine can be called
+before \texttt{MPI\_Init} or after the \texttt{MPI\_Finalize} command
+has been called. It returns an expression that evaluates to ``true''
+if the \texttt{MPI\_Finalize} routine has been executed and
+completed. 
 
 \subsection{Basic Information}
 
-\todo{Basic information}
+
+\begin{table}
+  \centering
+
+  \begin{tabular}{ll}
+    \texttt{MPI\_Comm\_size}  &  int MPI\_Comm\_size(MPI\_Comm comm, int *size)\\
+    \texttt{MPI\_Comm\_rank}  &  int MPI\_Comm\_rank(MPI\_Comm comm, int *rank)\\
+  \end{tabular}
+\caption{A list of the basic process management routines.}
+\label{tab:basicProcessInformation}
+\end{table}
+
+There are two commands, \texttt{MPI\_Comm\_size} and
+\texttt{MPI\_Comm\_rank}, that return information about processes
+within an execution group. The first command,
+\texttt{MPI\_Comm\_size}, returns the number of processes associated
+with the communicator. If the communicator provided allows
+communication between different groups then the number of processes
+returned is with respect to the local group. 
+
+The second command, \texttt{MPI\_Comm\_rank}, returns information
+about the specific process that calls the routine. It returns the rank
+number assigned to the process. The ranks are numbered from 0 to
+$N-1$, where $N$ is the total number of processes associated with the
+group. Combined with the \texttt{MPI\_Comm\_size} routine a process
+can determine its position within the group, and decisions can be made
+with respect to how different processes will determine their specific
+tasks as well as how the communication patterns will proceed.
 
 \subsection{Examples}
 
