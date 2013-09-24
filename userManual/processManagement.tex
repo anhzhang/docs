@@ -142,6 +142,38 @@ tasks as well as how the communication patterns will proceed.
 
 \lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
   numbersep=5pt, commentstyle=\scriptsize}
+\begin{lstlisting}[caption={Simplest MPI Program},
+                   basicstyle=\scriptsize,
+                   label=listing:simplestProcess]
+#include <fstream>
+#include <iostream>
+#include <mpi.h>
+
+// mpic++ -o  mpiSimplestExample mpiSimplestExample.cpp 
+// mpirun -np 4 --host localhost mpiSimplestExample
+
+int main(int argc,char **argv)
+{
+  // MPI job information.
+  int  mpiResult;     // Used to check the results from MPI library calls
+
+  // Initialize the session
+  mpiResult = MPI_Init (&argc,&argv);
+  if(mpiResult!= MPI_SUCCESS)
+    {
+      std::cout << "MPI not started. Terminating the process." << std::endl;
+      MPI_Abort(MPI_COMM_WORLD,mpiResult);
+    }
+
+  // All done. Time to wrap it up.
+  MPI_Finalize();
+  return(0);
+}
+\end{lstlisting}
+
+
+\lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
+  numbersep=5pt, commentstyle=\scriptsize}
 \begin{lstlisting}[caption={Basic Process Information},
                    basicstyle=\scriptsize,
                    label=listing:basicProcess]
@@ -188,6 +220,7 @@ int main(int argc,char **argv)
   return(0);
 }
 \end{lstlisting}
+
 
 
 \section{Intermediate}

@@ -15,7 +15,7 @@ DEP=
 	$(CC) $(CFLAGS) $(CURLFLAGS) -c $<
 
 
-all:	mpiBlockingCommunication mpiFileOperation mpiManagementExample mpiNonblockingCommunication
+all:	mpiBlockingCommunication mpiFileOperation mpiManagementExample mpiNonblockingCommunication mpiSimplestExample
 
 mpiBlockingCommunication: mpiBlockingCommunication.o $(DEP) $(LDEP)
 	$(CC) $(CFLAGS) -o $@ $@.o $(LIB)
@@ -29,7 +29,10 @@ mpiManagementExample: mpiManagementExample.o $(DEP) $(LDEP)
 mpiNonblockingCommunication: mpiNonblockingCommunication.o $(DEP) $(LDEP)
 	$(CC) $(CFLAGS) -o $@ $@.o $(LIB)
 
+mpiSimplestExample: mpiSimplestExample.o $(DEP) $(LDEP)
+	$(CC) $(CFLAGS) -o $@ $@.o $(LIB)
+
 
 clean:
-	rm -f *.o *~ mpiBlockingCommunication mpiFileOperation mpiManagementExample mpiNonblockingCommunication
+	rm -f *.o *~ mpiBlockingCommunication mpiFileOperation mpiManagementExample mpiNonblockingCommunication mpiSimplestExample
 
