@@ -1,7 +1,11 @@
 
-\chapter{Introduction To Open MPI}
+***************************
+Introduction To Open MPI
+***************************
 
-\section{Open MPI}
+=============
+Open MPI
+=============
 
 The Message Passing Interface (MPI) is a set of definitions for
 managing multiple processes on a wide variety of computational
@@ -22,41 +26,56 @@ explicitly making use of the Open MPI library.
 
 \todo Provide a low level introduction to MPI
 
-\section{Getting Started}
+=================
+Getting Started
+=================
 
-\todo Give an example like a mini-tutorial.
+.. note::
 
-\section{Compilation and Running}
+   Give an example like a mini-tutorial.
 
-\todo Discuss in more detail how to compile and execute a process. 
 
-\subsection{Compilation}
+=========================
+Compilation and Running
+=========================
 
-\todo How to compile a code
+.. note::
+   Discuss in more detail how to compile and execute a process. 
 
-\subsection{Execution}
+--------------
+Compilation
+--------------
 
-\todo How to start and execute a code and creating new processes. 
+.. note::
+   How to compile a code
+
+-----------
+Execution
+-----------
+
+.. note::
+   How to start and execute a code and creating new processes. 
 
 mpirun
 
 mpiexec
 
-\section{High Level Introduction}
+========================
+High Level Introduction
+========================
 
-\todo Give a more detailed introduction. Include some information about the
-MPI functionality. 
+.. note::
+   Give a more detailed introduction. Include some information about the
+   MPI functionality.
 
 From Joshua Hursey: 
-\begin{quote}
-  A high level introduction to some MPI functionally would be nice,
-  but I would not worry too much about the uglier corner cases of the
-  API.
-\end{quote}
 
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "OpenMPIUserManual"
-%%% End: 
 
-%  LocalWords:  MPI mpirun mpiexec
+|  A high level introduction to some MPI functionally would be nice,
+|  but I would not worry too much about the uglier corner cases of the
+|  API.
+
+
+
+
+
