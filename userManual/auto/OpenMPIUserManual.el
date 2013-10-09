@@ -1,0 +1,27 @@
+(TeX-add-style-hook "OpenMPIUserManual"
+ (lambda ()
+    (TeX-run-style-hooks
+     "epsfig"
+     "color"
+     "geometry"
+     "graphicx"
+     "pdftex"
+     "listings"
+     "etoolbox"
+     "ifpdf"
+     "hyperref"
+     "verbatim"
+     "layout"
+     ""
+     "latex2e"
+     "bk12"
+     "book"
+     "twoside"
+     "12pt"
+     "header"
+     "introduction"
+     "processManagement"
+     "communication"
+     "fileIO"
+     "tuning")))
+
