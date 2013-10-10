@@ -1,27 +1,46 @@
-\chapter{Tuning and Options}
 
-\section{Introduction}
+*******************
+Tuning and Options
+*******************
 
-\todo It needs to be made clear that this is specific to Open MPI.
+=============
+Introduction
+=============
 
-\todo Discuss what the tuning options are and provide an overview of what
-they can do. 
+.. sidebar:: TODO 
 
-\todo Discuss why you might want to change the defaults.
+      It needs to be made clear that this is specific to Open MPI.
 
-\section{Basic}
+.. sidebar:: TODO 
 
-\todo I need help here.
+      Discuss what the tuning options are and provide an overview of what
+      they can do. 
 
-\section{Intermediate}
+.. sidebar:: TODO 
 
-\todo I need help here.
+      Discuss why you might want to change the defaults.
 
-\section{Advanced}
+=============
+Basic
+=============
 
-\todo I need help here.
+.. sidebar:: TODO 
 
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "OpenMPIUserManual"
-%%% End: 
+      I need help here.
+
+=============
+Intermediate
+=============
+
+.. sidebar:: TODO 
+
+      I need help here.
+
+=============
+Advanced
+=============
+
+.. sidebar:: TODO 
+
+      I need help here.
+
