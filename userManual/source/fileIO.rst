@@ -1,132 +1,50 @@
-\chapter{File Operations}
 
-\section{Basic}
+*********************
+File Operations
+*********************
 
-\todo Basic file handling. File pointers. Binary data. Single process examples.
+======
+Basic
+======
 
-\todo Partitioning a file and avoiding overlapping data.
+.. sidebar:: TODO 
 
-\todo Blocking file operations. Opening a file. Writing basic data to the
-file. Closing the file.
+   Basic file handling. File pointers. Binary data. Single process examples.
 
-\lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
-  numbersep=5pt, commentstyle=\scriptsize}
-\begin{lstlisting}[caption={Example of writing information to a file.},
-                   basicstyle=\scriptsize,
-                   label=listing:writeFile]
-#include <fstream>
-#include <iostream>
-#include <string.h>
-#include <mpi.h>
+.. sidebar:: TODO 
 
-// mpic++ -o  mpiManagementExample mpiManagementExample.cpp 
-// mpirun -np 4 --host localhost mpiManagementExample
+    Partitioning a file and avoiding overlapping data.
 
-// Set the name of the data file and the number of items to write.
-#define FILE_NAME "fileExample-01.dat"
-#define NUMBER 10
+.. sidebar:: TODO 
 
-int main(int argc,char **argv)
-{
-  // MPI job information.
-  int  mpiResult;     // Used to check the results from MPI library calls
-  int  numtasks;      // Total number of processes spawned for this job.
-  int  rank;          // The unique number associated with this process.
-
-  // Information to be written to the file.
-  struct output 
-  {
-    double x;
-    int    i;
-  };
-
-  // buffers used to write the information.
-  output basicInfo;
-  char   buffer[1024];
-
-  // File related stuffs
-  MPI_File mpiFileHandle;
+    Blocking file operations. Opening a file. Writing basic data to the
+    file. Closing the file.
 
 
-  // Initialize the session
-  mpiResult = MPI_Init (&argc,&argv);
-  if(mpiResult!= MPI_SUCCESS)
-    {
-      std::cout << "MPI not started. Terminating the process." << std::endl;
-      MPI_Abort(MPI_COMM_WORLD,mpiResult);
-    }
+.. _listing-mpiBasicWrite:
 
-  // Get information about this session and this process 
-  MPI_Comm_size(MPI_COMM_WORLD,&numtasks);  // get the number of processes
-  MPI_Comm_rank(MPI_COMM_WORLD,&rank);      // get the rank of this process
-
-  // open the file
-  std::cout << "opening " << FILE_NAME << std::endl;
-  MPI_Status status;
-  char err_buffer[MPI_MAX_ERROR_STRING];
-  int resultlen;
-  int ierr = MPI_File_open(MPI_COMM_WORLD,FILE_NAME, 
-                           MPI_MODE_WRONLY | MPI_MODE_CREATE | MPI_MODE_EXCL, 
-                           MPI_INFO_NULL, 
-                           &mpiFileHandle);
-
-  // Print out the status of the request.
-  std::cout << "Open: " << ierr << "," << MPI_SUCCESS << std::endl;
-  std::cout << "Status: " << status.MPI_ERROR << "," 
-            << status.MPI_SOURCE << "," 
-            << status.MPI_TAG << std::endl;
-  MPI_Error_string(ierr,err_buffer,&resultlen);
-  std::cout << "Error: " << err_buffer << std::endl;
+.. literalinclude:: cpp/mpiBasicWrite.cpp
+    :language: c++
+    :linenos:
 
 
-  if(ierr != MPI_SUCCESS)
-    {
-      // There was an error in trying to create the file. Stop
-      // everything and shut down.
-      std::cout << "Could not open the file. Terminating the process." << std::endl;
-      MPI_Abort(MPI_COMM_WORLD,mpiResult);
-    }
+:ref:`Simple Write Example <listing-mpiBasicWrite>`
 
-  // Write out the basic information to the file.
-  // First move the file pointer to the correct location.
-  MPI_File_seek(mpiFileHandle,rank*sizeof(basicInfo),MPI_SEEK_SET);
+=============
+Intermediate
+=============
 
-  // Set the data and  copy it to the buffer
-  basicInfo.i = 2*rank;
-  basicInfo.x = 1.0+(float)basicInfo.i;
-  memset(buffer,0,1024);
-  memcpy(buffer,&basicInfo,sizeof(basicInfo));
+.. sidebar:: TODO 
 
-  // Let everybody know what will be written to the file.
-  std::cout << "rank: " << rank << " moving pointer to "
-            << rank*sizeof(basicInfo) 
-            << " writing " <<  basicInfo.i 
-            << " and " << basicInfo.x << std::endl;
+    Defining a view of a file. 
 
-  // write the date at the current pointer
-  MPI_File_write(mpiFileHandle,buffer,sizeof(basicInfo)/sizeof(char),
-                 MPI_CHAR, &status );
+.. sidebar:: TODO 
 
-  // close the file 
-  MPI_File_close(&mpiFileHandle);
+    non-blocking file operations.
 
-  // All done. Time to wrap it up.
-  MPI_Finalize();
-  return(0);
-}
-\end{lstlisting}
-
-\section{Intermediate}
-
-\todo Defining a view of a file. 
-
-\todo non-blocking file operations.
-
-\section{Advanced}
+=========
+Advanced
+=========
 
 \todo Shared file pointers.
 
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "OpenMPIUserManual"
-%%% End: 
