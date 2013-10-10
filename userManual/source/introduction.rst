@@ -46,6 +46,16 @@ Compilation and Running
 .. todo::
    Discuss in more detail how to compile and execute a process. 
 
+   * BProc versions 3 and 4 with LSF
+   * Sun Grid Engine (SGE), and the open source Grid Engine (support first introduced in Open MPI v1.2)
+   * PBS Pro, Torque, and Open PBS
+   * LoadLeveler scheduler (full support since 1.1.1)
+   * rsh / ssh
+   * SLURM
+   * XGrid
+   * Yod (Cray XT-3 and XT-4)
+
+
 
 --------------
 Compilation
@@ -172,6 +182,26 @@ High Level Introduction
 .. todo::
    Give a more detailed introduction. Include some information about the
    MPI functionality.
+
+.. todo:: 
+   Discuss how to distribute processes across nodes or across slots.
+
+.. todo::
+   Add discussion on the following environment variables:
+
+   * OMPI_COMM_WORLD_SIZE - the number of processes in this process' MPI Comm_World
+   * OMPI_COMM_WORLD_RANK - the MPI rank of this process
+   * OMPI_COMM_WORLD_LOCAL_RANK - the relative rank of this process on this node within its job. For example, if four processes in a job share a node, they will each be given a local rank ranging from 0 to 3.
+   * OMPI_UNIVERSE_SIZE - the number of process slots allocated to this job. Note that this may be different than the number of processes in the job.
+   * OMPI_COMM_WORLD_LOCAL_SIZE - the number of ranks from this job that are running on this node.
+   * OMPI_COMM_WORLD_NODE_RANK - the relative rank of this process on
+     this node looking across ALL jobs.
+
+.. todo:: 
+   Discuss starting up MPI connections lazy vs. immediate
+
+   * in the environment as OMPI_MCA_mpi_preconnect_mpi=1
+   * on the cmd line as mpirun -mca mpi_preconnect_mpi 1
 
 From Joshua Hursey: 
 
