@@ -27,8 +27,8 @@ Basic
 
 .. _listing-mpiBasicWrite:
 
-.. literalinclude:: cpp/mpiBasicWrite.cpp
-    :language: c++
+.. literalinclude:: cpp/mpiBasicWrite.c
+    :language: c
     :linenos:
 
 
