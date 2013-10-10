@@ -161,7 +161,7 @@ returned is with respect to the local group.
 The second command, ``MPI_Comm_rank``, returns information
 about the specific process that calls the routine. It returns the rank
 number assigned to the process. The ranks are numbered from 0 to
-$N-1$, where $N$ is the total number of processes associated with the
+N-1, where N is the total number of processes associated with the
 group. Combined with the ``MPI_Comm_size`` routine a process
 can determine its position within the group, and decisions can be made
 with respect to how different processes will determine their specific
