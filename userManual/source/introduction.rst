@@ -30,7 +30,7 @@ explicitly making use of the Open MPI library.
 Getting Started
 =================
 
-.. note::
+.. todo::
 
    Give an example like a mini-tutorial.
 
@@ -39,21 +39,21 @@ Getting Started
 Compilation and Running
 =========================
 
-.. note::
+.. todo::
    Discuss in more detail how to compile and execute a process. 
 
 --------------
 Compilation
 --------------
 
-.. note::
+.. todo::
    How to compile a code
 
 -----------
 Execution
 -----------
 
-.. note::
+.. todo::
    How to start and execute a code and creating new processes. 
 
 mpirun
@@ -64,7 +64,7 @@ mpiexec
 High Level Introduction
 ========================
 
-.. note::
+.. todo::
    Give a more detailed introduction. Include some information about the
    MPI functionality.
 

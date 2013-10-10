@@ -32,7 +32,7 @@ functions are given. This section builds on the second section and
 goes a little further into the organization of buffers. Additional
 details are also explored in how to track the status of a request.
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
    I am not familiar with the broadcast, scatter and gather
    routines. Where do they go?
@@ -51,12 +51,12 @@ starting with synchronous methods.
 Synchronous communications
 ---------------------------
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
    Discuss the idea of blocking sends and receives. Basic introduction to
    the idea.
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
     Relies on the process chapter.
 
@@ -80,7 +80,7 @@ Ideas and library calls:
 Aynchronous communications
 ---------------------------
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
    Discuss the basic idea of asynchronous communications. Give basic
    examples. Next subsection goes into more details once richer data
@@ -108,7 +108,7 @@ Ideas and library calls:
 Data and Memory Management
 ----------------------------
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
     Discuss memory organization. Discuss the ideas of buffers. Need to
     discuss the differences between synchronous and asynchronous

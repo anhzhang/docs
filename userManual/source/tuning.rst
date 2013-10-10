@@ -7,16 +7,16 @@ Tuning and Options
 Introduction
 =============
 
-.. sidebar:: TODO 
+.. todo::  
 
       It needs to be made clear that this is specific to Open MPI.
 
-.. sidebar:: TODO 
+.. todo::  
 
       Discuss what the tuning options are and provide an overview of what
       they can do. 
 
-.. sidebar:: TODO 
+.. todo::  
 
       Discuss why you might want to change the defaults.
 
@@ -24,7 +24,7 @@ Introduction
 Basic
 =============
 
-.. sidebar:: TODO 
+.. todo::  
 
       I need help here.
 
@@ -32,7 +32,7 @@ Basic
 Intermediate
 =============
 
-.. sidebar:: TODO 
+.. todo::  
 
       I need help here.
 
@@ -40,7 +40,6 @@ Intermediate
 Advanced
 =============
 
-.. sidebar:: TODO 
-
+.. todo::  
       I need help here.
 

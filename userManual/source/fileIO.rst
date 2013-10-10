@@ -7,15 +7,15 @@ File Operations
 Basic
 ======
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
    Basic file handling. File pointers. Binary data. Single process examples.
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
     Partitioning a file and avoiding overlapping data.
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
     Blocking file operations. Opening a file. Writing basic data to the
     file. Closing the file.
@@ -34,11 +34,11 @@ Basic
 Intermediate
 =============
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
     Defining a view of a file. 
 
-.. sidebar:: TODO 
+.. todo:: TODO 
 
     non-blocking file operations.
 

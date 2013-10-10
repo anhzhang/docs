@@ -104,7 +104,7 @@ stop all of the processes within the communicator group.  The error
 code that is passed to this routine is passed to the main program and
 should be handled appropriately.
 
-.. sidebar:: TODO
+.. todo:: TODO
 
    Needs Reference to Communicators
 
@@ -283,11 +283,11 @@ Intermediate ideas and commands associated include the following:
    * ``MPI_Initialized``
 
 
-.. sidebar:: TODO
+.. todo:: TODO
  
    Talk about groups and communicators.
 
-.. sidebar:: TODO
+.. todo:: TODO
  
    Error handling and status.
 
@@ -295,7 +295,7 @@ Intermediate ideas and commands associated include the following:
 Advanced
 =========
 
-.. sidebar:: TODO
+.. todo:: TODO
 
     Intermediate ideas and commands associated include the following: 
 
@@ -305,11 +305,11 @@ Advanced
 
 
 
-.. sidebar:: TODO
+.. todo:: TODO
 
     Talk about groups and communicators.
 
-.. sidebar:: TODO
+.. todo:: TODO
 
    Error handling and status.
 
