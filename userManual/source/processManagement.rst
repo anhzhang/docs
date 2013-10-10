@@ -1,275 +1,315 @@
-\chapter{Process Management}
+****************************************
+Process Management
+****************************************
 
-\section{Basic}
+=========
+Basic
+=========
 
 
 When an MPI execution environment is initiated the requested number of
 processes are created and are distributed in the manner specified by
 the command used to start the processes. For example, if the
-\texttt{mpirun} command is used the options provided will determine
+``mpirun`` command is used the options provided will determine
 how many processes to start as well as the different machines to use.
 
 At a minimum a process within the MPI execution environment is
 expected to call two functions. Prior to any other call to the MPI
-library the \texttt{MPI\_Init} function \textit{must} be called. When
+library the ``MPI_Init`` function *must* be called. When
 the process will no longer make use of the MPI library the
-\texttt{MPI\_Finalize} function should be called. 
+``MPI_Finalize`` function should be called. 
 
-\begin{table}
-  \centering
 
-  \begin{tabular}{ll}
-    \texttt{MPI\_Init}        & \textbf{Required} to initialize an process \\
-    \texttt{MPI\_Comm\_size}  & Determine the number of MPI processes \\
-    \texttt{MPI\_Comm\_rank}  & Determine the number associated with this process. \\
-    \texttt{MPI\_Abort}       & Stops all MPI processes. \\
-    \texttt{MPI\_Initialized} & Determine if \texttt{MPI\_Init} has been called. \\
-    \texttt{MPI\_Finalize}    & Stops the MPI execution environment. \\
-    \texttt{MPI\_Finalized}   & Determine if \texttt{MPI\_Finalize} has been called.
-  \end{tabular}
-\caption{A list of the basic process management routines.}
-\label{tab:basicProcessManagementCommands}
-\end{table}
+
+.. _tabbasicProcessManagementCommands:
+
+
++--------------------+----------------------------------------------------+
+|``MPI_Init``        | **Required** to initialize an process              |
++--------------------+----------------------------------------------------+
+|``MPI_Comm_size``   | Determine the number of MPI processes              |
++--------------------+----------------------------------------------------+
+|``MPI_Comm_rank``   | Determine the number associated with this process. |
++--------------------+----------------------------------------------------+
+|``MPI_Abort``       | Stops all MPI processes.                           |
++--------------------+----------------------------------------------------+
+|``MPI_Initialized`` | Determine if ``MPI_Init`` has been called.         |
++--------------------+----------------------------------------------------+
+|``MPI_Finalize``    | Stops the MPI execution environment.               |
++--------------------+----------------------------------------------------+
+|``MPI_Finalized``   | Determine if ``MPI_Finalize`` has been called.     |
++--------------------+----------------------------------------------------+
+
+.. centered::
+   Table: Basic Process Management Routines
+   A list of the basic process management routines.
+
+
 
 
 A number of other routines are available that can be used to get basic
 information about the process calling the routines.  These basic
-commands are given in Table
-\ref{tab:basicProcessManagementCommands}. They are used to dynamically
-determine the number of MPI processes that are associated with the
-job, determine a way to differentiate between the different processes
-as an ordered list of processes, and to gracefully end the processes.
+routines are given in Table 
+:ref:`Basic Process Management Routines <tabbasicProcessManagementCommands>`
+They are used to dynamically determine the number of MPI processes
+that are associated with the job, determine a way to differentiate
+between the different processes as an ordered list of processes, and
+to gracefully end the processes.
 
-\subsection{Initializing and Terminating the MPI Execution
-  Environment}
+-----------------------------------------------------------
+Initializing and Terminating the MPI Execution Environment
+-----------------------------------------------------------
 
 The routines used to initialize and end an execution environment are
-given here. The commands given are \texttt{MPI\_Init},
-\texttt{MPI\_Abort}, \texttt{MPI\_Initialized}, and
-\texttt{MPI\_Finalize}. The syntax for these routines are given in
-Table \ref{tab:initializeProcessCommands} and are briefly discussed in
-order.
+given here. The routines given are ``MPI_Init``, ``MPI_Abort``,
+``MPI_Initialized``, and ``MPI_Finalize``. The syntax for these
+routines are given in Table
+:ref:`Basic Process Initialization Routines <tabinitializeProcessCommands>`
+and are briefly discussed in order.
 
-The first MPI library call must be the \texttt{MPI\_Init} command, and
+The first MPI library call must be the ``MPI_Init`` routine, and
 this command can only be called once. The C/C++ versions of the
-command require two arguments that match the \texttt{argc} and
-\texttt{argv} arguments provided to the main program. The arguments
+routine require two arguments that match the ``argc`` and
+``argv`` arguments provided to the main program. The arguments
 are not altered. 
 
-The \texttt{MPI\_Initialized} routine is available to test whether or
-not the \texttt{MPI\_Init} routine has been called.  The
-\texttt{MPI\_Initialized} routine is the only routine in the Open MPI
-library that can be called before the \texttt{MPI\_Init} routine is
-called. \todo{Is the returned value and the flag the same?}
+The ``MPI_Initialized`` routine is available to test whether or
+not the ``MPI_Init`` routine has been called.  The
+``MPI_Initialized`` routine is the only routine in the Open MPI
+library that can be called before the ``MPI_Init`` routine is
+called. Question: Is the returned value and the flag the same?
+
+.. _tabinitializeProcessCommands:
+
++--------------------+----------------------------------------------+
+|``MPI_Init``        | int MPI_Init(int \*argc, char \*\*argv)      |
++--------------------+----------------------------------------------+
+|``MPI_Initialized`` | int MPI_Initialized(int \*flag)              |
++--------------------+----------------------------------------------+
+|``MPI_Abort``       | int MPI_Abort(MPI_Comm comm, int errorcode)  |
++--------------------+----------------------------------------------+
+|``MPI_Finalize``    | int MPI_Finalize()                           |
++--------------------+----------------------------------------------+
+|``MPI_Finalized``   | int MPI_Finalized(int \*flag)                |
++--------------------+----------------------------------------------+
+
+.. centered::
+    Table: Basic Process Initialization Routines
+    Syntax for the initialization and termination routines.
 
 
-\begin{table}
-  \centering
+A call to the ``MPI_Abort`` routine is a request to stop all of the
+processes in the execution environment. The system will attempt to
+stop all of the processes within the communicator group.  The error
+code that is passed to this routine is passed to the main program and
+should be handled appropriately.
 
-  \begin{tabular}{ll}
-    \texttt{MPI\_Init}        & int MPI\_Init(int *argc, char **argv) \\
-    \texttt{MPI\_Initialized} & int MPI\_Initialized(int *flag) \\
-    \texttt{MPI\_Abort}       & int MPI\_Abort(MPI\_Comm comm, int errorcode) \\
-    \texttt{MPI\_Finalize}    & int MPI\_Finalize() \\
-    \texttt{MPI\_Finalized}   & int MPI\_Finalized(int *flag)
-  \end{tabular}
-\caption{Syntax for the initialization and termination routines.}
-\label{tab:initializeProcessCommands}
-\end{table}
+.. sidebar:: TODO
 
-A call to the \texttt{MPI\_Abort} routine is a request to stop all of
-the processes in the execution environment. The system will attempt to
-stop all of the processes within the communicator
-group. \todo{Reference to Communicators} The error code that is passed
-to this routine is passed to the main program and should be handled
-appropriately.
+   Needs Reference to Communicators
 
 The last MPI routine to be called by a process is the
-\texttt{MPI\_Finalize} routine. This library routine will clean up all
+``MPI_Finalize`` routine. This library routine will clean up all
 MPI states. The only routines that can be called after the
-\texttt{MPI\_Finalize} is called are the \texttt{MPI\_Get\_version},
-\texttt{MPI\_Initialized}, and \texttt{MPI\_Finalized} commands.
+``MPI_Finalize`` is called are the ``MPI_Get_version``,
+``MPI_Initialized``, and ``MPI_Finalized`` routines.
 
-Prior to calling the \texttt{MPI\_Finalize} routine all pending
+Prior to calling the ``MPI_Finalize`` routine all pending
 communications should be completed. There is no guarantee that any
-communication request that is pending when the \texttt{MPI\_Finalize}
+communication request that is pending when the ``MPI_Finalize``
 routine is executed will be completed. This command will impact all
 processes in an execution environment, and it is left to the
 programmer to determine that any pending requests have been completed
-prior to calling the \texttt{MPI\_Finalize} routine.
+prior to calling the ``MPI_Finalize`` routine.
 
-Finally, the \texttt{MPI\_Finalized} routine allows for a process to
-check to see if the \texttt{MPI\_Finalize} routine has been called by
+Finally, the ``MPI_Finalized`` routine allows for a process to
+check to see if the ``MPI_Finalize`` routine has been called by
 a process in the execution environment. This routine can be called
-before \texttt{MPI\_Init} or after the \texttt{MPI\_Finalize} command
-has been called. It returns an expression that evaluates to ``true''
-if the \texttt{MPI\_Finalize} routine has been executed and
+before ``MPI_Init`` or after the ``MPI_Finalize`` command
+has been called. It returns an expression that evaluates to ``true``
+if the ``MPI_Finalize`` routine has been executed and
 completed. 
 
-\subsection{Basic Information}
+
+-------------------
+Basic Information
+-------------------
+
+.. _tabProcessInformationCommands:
 
 
-\begin{table}
-  \centering
++-------------------+-----------------------------------------------+
+|``MPI_Comm_size``  |  int MPI_Comm_size(MPI_Comm comm, int \*size) |
++-------------------+-----------------------------------------------+
+|``MPI_Comm_rank``  |  int MPI_Comm_rank(MPI_Comm comm, int \*rank) |
++-------------------+-----------------------------------------------+
 
-  \begin{tabular}{ll}
-    \texttt{MPI\_Comm\_size}  &  int MPI\_Comm\_size(MPI\_Comm comm, int *size)\\
-    \texttt{MPI\_Comm\_rank}  &  int MPI\_Comm\_rank(MPI\_Comm comm, int *rank)\\
-  \end{tabular}
-\caption{A list of the basic process management routines.}
-\label{tab:basicProcessInformation}
-\end{table}
+.. centered::
+    Table: Basic Information Routines
+    A list of the routines that provide basic information about the process.
 
-There are two commands, \texttt{MPI\_Comm\_size} and
-\texttt{MPI\_Comm\_rank}, that return information about processes
+
+
+There are two commands, ``MPI_Comm_size`` and
+``MPI_Comm_rank``, that return information about processes
 within an execution group. The first command,
-\texttt{MPI\_Comm\_size}, returns the number of processes associated
+``MPI_Comm_size``, returns the number of processes associated
 with the communicator. If the communicator provided allows
 communication between different groups then the number of processes
 returned is with respect to the local group. 
 
-The second command, \texttt{MPI\_Comm\_rank}, returns information
+The second command, ``MPI_Comm_rank``, returns information
 about the specific process that calls the routine. It returns the rank
 number assigned to the process. The ranks are numbered from 0 to
 $N-1$, where $N$ is the total number of processes associated with the
-group. Combined with the \texttt{MPI\_Comm\_size} routine a process
+group. Combined with the ``MPI_Comm_size`` routine a process
 can determine its position within the group, and decisions can be made
 with respect to how different processes will determine their specific
 tasks as well as how the communication patterns will proceed.
 
-\subsection{Examples}
+---------
+Examples
+---------
 
 Two examples are given here. The first example, Listing
-\ref{listing:simplestProcess}, is a minimal MPI program. The two
-required routines are called. First the \texttt{MPI\_Init} routine is
-called, and at the end of the program the \texttt{MPI\_Finalize}
+:ref:`Simple Process <listing-simplestProcess>` , 
+is a minimal MPI program. The two
+required routines are called. First the ``MPI_Init`` routine is
+called, and at the end of the program the ``MPI_Finalize``
 routine is called.
 
-\lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
-  numbersep=5pt, commentstyle=\scriptsize}
-\begin{lstlisting}[caption={Simplest MPI Program},
-                   basicstyle=\scriptsize,
-                   label=listing:simplestProcess]
-#include <fstream>
-#include <iostream>
-#include <mpi.h>
 
-// mpic++ -o  mpiSimplestExample mpiSimplestExample.cpp 
-// mpirun -np 4 --host localhost mpiSimplestExample
+.. _listing-simplestProcess:
 
-int main(int argc,char **argv)
-{
-  // MPI job information.
-  int  mpiResult;     // Used to check the results from MPI library calls
+.. code-block:: cpp
+     :linenos:
 
-  // Initialize the session
-  mpiResult = MPI_Init (&argc,&argv);
-  if(mpiResult!= MPI_SUCCESS)
-    {
-      std::cout << "MPI not started. Terminating the process." << std::endl;
-      MPI_Abort(MPI_COMM_WORLD,mpiResult);
-    }
+     #include <fstream>
+     #include <iostream>
+     #include <mpi.h>
 
-  // All done. Time to wrap it up.
-  MPI_Finalize();
-  return(0);
-}
-\end{lstlisting}
+     // mpic++ -o  mpiSimplestExample mpiSimplestExample.cpp 
+     // mpirun -np 4 --host localhost mpiSimplestExample
 
-The second program, Listing \ref{listing:basicProcess}, provides a
-demonstration on the information that a process can determine about
-the process itself as well as the wider execution group. This program
-is similar to the minimal program given in Listing
-\ref{listing:simplestProcess}. The primary difference is that the
-process makes use of the \texttt{MPI\_Comm\_size} and
-\texttt{MPI\_Comm\_rank} routines to determine how many processes were
-initiated in the execution group and the relative order of the process
-with respect to the other processes.
+     int main(int argc,char **argv)
+     {
+       // MPI job information.
+       int  mpiResult;     // Used to check the results from MPI library calls
 
-\lstset{language=C++, numbers=left, numberstyle=\tiny, stepnumber=1,
-  numbersep=5pt, commentstyle=\scriptsize}
-\begin{lstlisting}[caption={Basic Process Information},
-                   basicstyle=\scriptsize,
-                   label=listing:basicProcess]
-#include <fstream>
-#include <iostream>
-#include <mpi.h>
+       // Initialize the session
+       mpiResult = MPI_Init (&argc,&argv);
+       if(mpiResult!= MPI_SUCCESS)
+       {
+         std::cout << "MPI not started. Terminating the process." << std::endl;
+         MPI_Abort(MPI_COMM_WORLD,mpiResult);
+       }
 
-// mpic++ -o  mpiManagementExample mpiManagementExample.cpp 
-// mpirun -np 4 --host localhost mpiManagementExample
-
-int main(int argc,char **argv)
-{
-  // MPI job information.
-  int  mpiResult;     // Used to check the results from MPI library calls
-  int  numtasks;      // Total number of processes spawned for this job.
-  int  rank;          // The unique number associated with this process.
-
-  // Host Information 
-  char hostname[MPI_MAX_PROCESSOR_NAME];
-  int  len;
-
-  // Initialize the session
-  mpiResult = MPI_Init (&argc,&argv);
-  if(mpiResult!= MPI_SUCCESS)
-    {
-      std::cout << "MPI not started. Terminating the process." << std::endl;
-      MPI_Abort(MPI_COMM_WORLD,mpiResult);
-    }
-
-  // Get information about this session and this process 
-  MPI_Comm_size(MPI_COMM_WORLD,&numtasks);  // get the number of processes
-  MPI_Comm_rank(MPI_COMM_WORLD,&rank);      // get the rank of this process
-  MPI_Get_processor_name(hostname, &len);   // Get the host name for
-                                            // this process
-
-  // Print out the information about this process.
-  std::cout << "Number of tasks= " <<  numtasks
-            << " My rank= " << rank
-            << " Running on " << hostname
-            << std::endl;
-
-  // All done. Time to wrap it up.
-  MPI_Finalize();
-  return(0);
-}
-\end{lstlisting}
+       // All done. Time to wrap it up.
+       MPI_Finalize();
+       return(0);
+     }
 
 
+The second program, Listing
+:ref:`Simple Process <listing-basicProcess>` 
+provides a demonstration on the information that a process can
+determine about the process itself as well as the wider execution
+group. This program is similar to the minimal program given in Listing
+:ref:`Simple Process <listing-simplestProcess>` . 
+The primary difference is that the process makes use of the
+``MPI_Comm_size`` and ``MPI_Comm_rank`` routines to determine how many
+processes were initiated in the execution group and the relative order
+of the process with respect to the other processes.
 
-\section{Intermediate}
 
-\todo Intermediate ideas and commands associated include the following: \\
-\begin{itemize}
-\item \texttt{MPI\_Get\_processor\_name}
-\item \texttt{MPI\_Get\_version}
-\item \texttt{MPI\_Initialized}
-\end{itemize}
+.. _listing-basicProcess:
 
-\todo Talk about groups and communicators.
+.. code-block:: cpp
+     :linenos:
 
-\todo Error handling and status.
+     #include <fstream>
+     #include <iostream>
+     #include <mpi.h>
 
-\section{Advanced}
+     // mpic++ -o  mpiManagementExample mpiManagementExample.cpp 
+     // mpirun -np 4 --host localhost mpiManagementExample
 
-\todo Intermediate ideas and commands associated include the following: \\
-\begin{itemize}
-\item \texttt{MPI\_Wtime}
-\item \texttt{MPI\_Wtick}
-\item Go into details about communicators?
-\end{itemize}
+     int main(int argc,char **argv)
+     {
+       // MPI job information.
+       int  mpiResult;     // Used to check the results from MPI library calls
+       int  numtasks;      // Total number of processes spawned for this job.
+       int  rank;          // The unique number associated with this process.
 
-\todo Talk about groups and communicators.
+       // Host Information 
+       char hostname[MPI_MAX_PROCESSOR_NAME];
+       int  len;
 
-\todo Error handling and status.
+       // Initialize the session
+       mpiResult = MPI_Init (&argc,&argv);
+       if(mpiResult!= MPI_SUCCESS)
+         {
+           std::cout << "MPI not started. Terminating the process." << std::endl;
+           MPI_Abort(MPI_COMM_WORLD,mpiResult);
+         }
 
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "OpenMPIUserManual"
-%%% End: 
+       // Get information about this session and this process 
+       MPI_Comm_size(MPI_COMM_WORLD,&numtasks);  // get the number of processes
+       MPI_Comm_rank(MPI_COMM_WORLD,&rank);      // get the rank of this process
+       MPI_Get_processor_name(hostname, &len);   // Get the host name for
+                                                 // this process
 
-%  LocalWords:  MPI mpirun Init argc argv errorcode numberstyle mpi
-%  LocalWords:  stepnumber numbersep commentstyle basicstyle fstream
-%  LocalWords:  basicProcess iostream mpic mpiManagementExample cpp
-%  LocalWords:  np localhost mpiResult numtasks hostname len Wtime
-%  LocalWords:  Wtick
+       // Print out the information about this process.
+       std::cout << "Number of tasks= " <<  numtasks
+                 << " My rank= " << rank
+                 << " Running on " << hostname
+                 << std::endl;
+
+       // All done. Time to wrap it up.
+       MPI_Finalize();
+       return(0);
+     }
+
+
+
+=============
+Intermediate
+=============
+
+Intermediate ideas and commands associated include the following: 
+
+   * ``MPI_Get_processor_name``
+   * ``MPI_Get_version``
+   * ``MPI_Initialized``
+
+
+.. sidebar:: TODO
+ 
+   Talk about groups and communicators.
+
+.. sidebar:: TODO
+ 
+   Error handling and status.
+
+=========
+Advanced
+=========
+
+.. sidebar:: TODO
+
+    Intermediate ideas and commands associated include the following: 
+
+   * ``MPI_Wtime``
+   * ``MPI_Wtick``
+   * Go into details about communicators?
+
+
+
+.. sidebar:: TODO
+
+    Talk about groups and communicators.
+
+.. sidebar:: TODO
+
+   Error handling and status.
+
