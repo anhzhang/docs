@@ -35,11 +35,11 @@ int main(int argc,char **argv)
   MPI_Comm_rank(MPI_COMM_WORLD,&rank);      /* get the rank of this process */
   MPI_Get_processor_name(hostname, &len);   /* Get the host name for this process */
 
-  // Print out the information about this process.
+  /* Print out the information about this process. */
   printf("Number of tasks: %d, my rank: %d, hostname: %s\n",
          numtasks,rank,hostname);
 
-  // All done. Time to wrap it up.
+  /* All done. Time to wrap it up. */
   MPI_Finalize();
   return(0);
 }
