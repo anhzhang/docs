@@ -34,17 +34,61 @@ Getting Started
 
 .. index:: tutorial
 
-.. todo::
 
-   Give an example like a mini-tutorial.
+A quick example is given to provide an overview of how to run a set of
+processes in the Open MPI execution environment. The program, shown in
+listing :ref:`a first program <listing-firstProcess>`, is compiled and
+ran. Each process in the job determines the total number of processes
+and the order number for the process, and it then prints out the
+details.
+
+.. _listing-firstProcess:
+
+.. literalinclude:: cpp/firstExample.c
+    :language: c
+    :linenos:
+
+.. centered::
+   Table: A First Example.
+   A simple example of a program using the Open MPI ABI.
+
+The commands to compile and execute the processes are given below,
+:ref:`output from a first program <output-firstProcess>`. The code is
+first compiled using the `mpicc` command and is then executed using
+the `mpirun` command using a total of four processes.
+
+.. _output-firstProcess:
+
+.. code-block:: sh
+
+   sh$ mpicc -o  firstExample firstExample.c
+   sh$ mpirun -np 4 --host localhost firstExample
+     Number of tasks: 4, my rank: 0, hostname: black.sc.clarkson.edu
+     Number of tasks: 4, my rank: 1, hostname: black.sc.clarkson.edu
+     Number of tasks: 4, my rank: 2, hostname: black.sc.clarkson.edu
+     Number of tasks: 4, my rank: 3, hostname: black.sc.clarkson.edu
+
+.. centered::
+   Table: Output From A First Example.
+   The output from the simple example of a program using the Open MPI
+   ABI.
+
 
 
 =========================
 Compilation and Running
 =========================
 
-.. todo::
-   Discuss in more detail how to compile and execute a process. 
+We provide a broad overview on how to compile and run a program to
+work within the Open MPI execution environment. Open MPI provides both
+the executable environment and the binary interface to the libraries
+for sharing information across multiple processes in a wide variety of
+hardware platforms. The details on how to compile and execute the
+resulting processes can vary widely depending on the physical system
+and how it is set up. 
+
+The Open MPI execution environment can be accessed in one of the
+following ways:
 
    * BProc versions 3 and 4 with LSF
    * Sun Grid Engine (SGE), and the open source Grid Engine (support first introduced in Open MPI v1.2)
@@ -55,7 +99,11 @@ Compilation and Running
    * XGrid
    * Yod (Cray XT-3 and XT-4)
 
-
+We do not explore the details of all of these systems but provide an
+overview of how to compile and execute a job using the standard Open
+MPI libraries and wrappers. First, the details on compilation and
+linking are explored. After that the details on executing a set of
+processes is explored.
 
 --------------
 Compilation
