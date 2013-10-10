@@ -3,6 +3,9 @@
 Sharing Information Between Processes
 ***************************************
 
+.. index:: sharing information
+.. index:: message passing
+
 The Open MPI libraries provide for a wide variety of approaches for
 sharing information between processes. The details of how the
 information is managed and passed between the physical machines is
@@ -51,6 +54,11 @@ starting with synchronous methods.
 Synchronous communications
 ---------------------------
 
+.. index:: synchronous communications
+.. index:: blocking communications
+.. index:: MPI_Send
+.. index:: MPI_Recv
+
 .. todo:: TODO 
 
    Discuss the idea of blocking sends and receives. Basic introduction to
@@ -79,6 +87,9 @@ Ideas and library calls:
 ---------------------------
 Aynchronous communications
 ---------------------------
+
+.. index:: asynchronous communications
+.. index:: non-blocking communications
 
 .. todo:: TODO 
 

@@ -7,6 +7,8 @@ Introduction To Open MPI
 Open MPI
 =============
 
+.. index:: Open MPI
+
 The Message Passing Interface (MPI) is a set of definitions for
 managing multiple processes on a wide variety of computational
 platforms. Open MPI is an implementation of this set of definitions.
@@ -30,6 +32,8 @@ explicitly making use of the Open MPI library.
 Getting Started
 =================
 
+.. index:: tutorial
+
 .. todo::
 
    Give an example like a mini-tutorial.
@@ -46,12 +50,17 @@ Compilation and Running
 Compilation
 --------------
 
+.. index:: compilation
+
 .. todo::
    How to compile a code
 
 -----------
 Execution
 -----------
+
+.. index:: running
+.. index:: execution
 
 .. todo::
    How to start and execute a code and creating new processes. 

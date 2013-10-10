@@ -3,6 +3,10 @@
 File Operations
 *********************
 
+.. index:: file operations
+.. index:: writing to a file
+.. index:: reading from a file
+
 ======
 Basic
 ======

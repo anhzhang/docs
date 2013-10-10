@@ -6,6 +6,7 @@ Process Management
 Basic
 =========
 
+.. index:: process management
 
 When an MPI execution environment is initiated the requested number of
 processes are created and are distributed in the manner specified by
@@ -59,6 +60,10 @@ to gracefully end the processes.
 -----------------------------------------------------------
 Initializing and Terminating the MPI Execution Environment
 -----------------------------------------------------------
+
+.. index:: initialization
+.. index:: termination
+.. index:: stopping
 
 The routines used to initialize and end an execution environment are
 given here. The routines given are ``MPI_Init``, ``MPI_Abort``,
@@ -134,6 +139,12 @@ completed.
 -------------------
 Basic Information
 -------------------
+
+.. index:: process information
+.. index:: MPI_Comm_Size
+.. index:: MPI_Comm_rank
+.. index:: size
+.. index:: rank
 
 .. _tabProcessInformationCommands:
 
@@ -276,6 +287,12 @@ of the process with respect to the other processes.
 Intermediate
 =============
 
+.. index:: processor name
+.. index:: version
+.. index:: MPI_Get_processor_name
+.. index:: MPI_Get_version
+.. index:: MPI_Initialized
+
 Intermediate ideas and commands associated include the following: 
 
    * ``MPI_Get_processor_name``
@@ -294,6 +311,9 @@ Intermediate ideas and commands associated include the following:
 =========
 Advanced
 =========
+
+.. index:: MPI_Wtime
+.. index:: MPI_Wtick
 
 .. todo:: TODO
 
