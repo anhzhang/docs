@@ -201,26 +201,64 @@ This command will start five processes within the Open MPI run-time
 execution system, and the five procceses will load and execute copies
 of the program.
 
-Another widely used flag is the ``--hostfile`` option. This flag
-allows you to specify a list of hosts to be used, and the file format
-allows you to specify the maximum number of processes per host. 
+You can specify which computers that will run the processes using the
+``--host`` flag. The argument for this flag is a comma separated list
+of hosts. For example, to run three processes on hosts ``thingOne``,
+``thingTwo``, and ``thingThree`` the following command can be used:
 
 .. code-block:: sh
 
+   sh$ mpirun --np 3 --host thingOne,thingTwo,thingThree myApplication
+
+Another widely used flag is the ``--hostfile`` option. This flag
+allows you to specify a list of hosts to be used, and the file format
+allows you to specify the maximum number of processes per host. An
+example is given below:
+
+.. code-block:: sh
+
+   # hosts.txt
    # hostfile for my run
    # Note that anything after a "#" is treated as a comment.
 
    # Specify a file which will only have one process
-   bubba.manges.edu
+   thingOne.clarkson.edu
 
    # Specify a machine with many cores that will safely allow two
    # processes
-   friendly.manges.edu=2
+   thingTwo.clarkson.edu=2
 
    # Specify a machine with limited cores that will safely allow two
    # processes but certainly not more than 3
-   angry.manges.edu slots=2 max-slots=3
+   thingThree.clarkson.edu slots=2 max-slots=3
 
+If the name of this file is *hosts.txt* then five processes can be
+started on the hosts using the following command:
+
+.. code-block:: sh
+
+   sh$ mpirun --np 5 --hostfile hosts.txt myApplication
+
+
+Note that the ``--host`` and the ``--hostfile`` flags can be used
+together, but the  arguments to the ``--host`` command must be
+contained in the given host file. The result of the ``--host`` options
+is to limit the hosts to use that are found within the host file *and*
+are in the list of options to the ``--host`` flag. For example, if a
+file *hosts.txt* contains ``thingOne``, ``thingTwo``, and
+``thingThree``, the following command will start the processes on
+``thingTwo`` and ``thingThree``:
+
+.. code-block:: sh
+
+   sh$ mpirun --np 2 --hostfile hosts.txt --host thingTwo,thingThree  myApplication
+
+On the other hand, the following command will result in an error and
+cannot be executed because the host ``thingFour`` is not in the host file:
+
+.. code-block:: sh
+
+   sh$ mpirun --np 2 --hostfile hosts.txt --host thingOne,thingFour  myApplication
 
 
 ========================
