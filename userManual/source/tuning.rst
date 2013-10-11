@@ -44,3 +44,5 @@ Advanced
 .. todo::  
       I need help here.
 
+..  mca_btl_*_if_include / mca_btl_*_if_exclude parameters are used for setting network interfaces.
+

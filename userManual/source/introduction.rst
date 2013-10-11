@@ -185,7 +185,7 @@ are the generic approaches that are part of the standard Open MPI
 libraries, but they may not be appropriate for your particular
 system. 
 
-The most simple way to execute a program under the Open MPI system is
+The simplest way to execute a program under the Open MPI system is
 to use either the ``mpirun`` or the ``mpiexec`` command. Both commands
 are symbolic links to the Open MPI back-end that manages processes, and
 we use ``mpirun`` here for our examples. 
@@ -229,7 +229,7 @@ example is given below:
 
    # Specify a machine with many cores that will safely allow two
    # processes
-   thingTwo.clarkson.edu=2
+   thingTwo.clarkson.edu slots=2
 
    # Specify a machine with limited cores that will safely allow two
    # processes but certainly not more than 3
@@ -254,14 +254,14 @@ file *hosts.txt* contains ``thingOne``, ``thingTwo``, and
 
 .. code-block:: sh
 
-   sh$ mpirun --np 2 --hostfile hosts.txt --host thingTwo,thingThree  myApplication
+   sh$ mpirun --np 2 --hostfile hosts.txt --host thingTwo.clarkson.edu,thingThree.clarkson.edu  myApplication
 
 On the other hand, the following command will result in an error and
 cannot be executed because the host ``thingFour`` is not in the host file:
 
 .. code-block:: sh
 
-   sh$ mpirun --np 2 --hostfile hosts.txt --host thingOne,thingFour  myApplication
+   sh$ mpirun --np 2 --hostfile hosts.txt --host thingOne.clarkson.edu,thingFour.clarkson.edu  myApplication
 
 The advantage to using both flags is that the ``--host`` flag can
 specify which hosts to use. The ``--hostfile`` flag can be used to
@@ -270,17 +270,32 @@ respect to the number of processes that can be used on each
 machine. Taken together a general host file for a given system can be
 used for a wide variety of job submissions.
 
+Note that in the examples above fully qualified domain names are
+used. This is not a requirement. If a name is found, that machine will
+be used. Also, note that the host name is used to determine where the
+process is run, but other details, such as the network interface, are
+set through the various MCA parameters. See the chapter on
+:ref:`tuning parameters<chapter-tuning>` for more details.
 
 =============================
 Defining Optional Behaviors
 =============================
 
-.. todo::
-   Give a more detailed introduction. Include some information about the
-   MPI functionality.
+Some of the details of Open MPI are explored in this section. These
+details focus on the Open MPI execution system. The examples given
+here provide a relatively superficial overview of the kind of
+behaviors that can be set or changed for an process. More details can
+be found in the chapter on :ref:`tuning parameters.<chapter-tuning>`
 
-.. todo:: 
-   Discuss how to distribute processes across nodes or across slots.
+A discussion on the environment variables defined by Open MPI is given
+with a brief discussion of how environment variables are defined for a
+process. Next a brief overview is given on the two different ways that
+the parameters used to set specific behaviors can be set. 
+
+
+.. to tell mpi where it is install used the --prefix flag.
+.. shell$ mpirun --prefix /opt/openmpi-1.6.5 -np 4 a.out
+..
 
 
 -----------------------
