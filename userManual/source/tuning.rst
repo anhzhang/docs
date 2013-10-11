@@ -1,4 +1,5 @@
 
+.. _chapter-tuning:
 *******************
 Tuning and Options
 *******************

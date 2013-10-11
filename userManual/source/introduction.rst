@@ -26,7 +26,8 @@ processes that can be thought of as acting independently of one
 another.  Any information shared between the processes must done so
 explicitly making use of the Open MPI library.
 
-\todo Provide a low level introduction to MPI
+.. todo:: 
+   Provide a low level introduction to MPI
 
 =================
 Getting Started
@@ -37,10 +38,10 @@ Getting Started
 
 A quick example is given to provide an overview of how to run a set of
 processes in the Open MPI execution environment. The program, shown in
-listing :ref:`a first program <listing-firstProcess>`, is compiled and
-ran. Each process in the job determines the total number of processes
-and the order number for the process, and it then prints out the
-details.
+the listing (:ref:`a first program <listing-firstProcess>`), is
+compiled and ran. Each process in the job determines the total number
+of processes, the order number for the process, and it then prints out
+the details.
 
 .. _listing-firstProcess:
 
@@ -49,12 +50,12 @@ details.
     :linenos:
 
 .. centered::
-   Table: A First Example.
+   Listing: A First Example.
    A simple example of a program using the Open MPI ABI.
 
-The commands to compile and execute the processes are given below,
-:ref:`output from a first program <output-firstProcess>`. The code is
-first compiled using the `mpicc` command and is then executed using
+The commands to compile and execute the processes are given below
+(:ref:`output from a first program <output-firstProcess>`). The code
+is first compiled using the `mpicc` command and is then executed using
 the `mpirun` command using a total of four processes.
 
 .. _output-firstProcess:
@@ -166,13 +167,15 @@ The commands used to run an Open MPI program are ``mpirun`` and
 ``mpiexec``. These commands must be in your path, and your
 ``LD_LIBRARY_PATH`` must also include the Open MPI library. For
 example, if your Open MPI installation is located in your
-``/opt/openmpi`` directory then you need to execute the following lines
-if you are using a bash shell:
+``/opt/openmpi`` directory then you need to either execute the
+following lines if you are using a bash shell:
 
 .. code-block:: sh
 
    sh$ export PATH=$PATH:/opt/openmpi/bin
    sh$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/openmpi/lib
+
+(Alternatively you could put these commands in your shell's profile.)
 
 There are a wide variety ways to submit jobs for any system, and the
 requirements can vary widely across different systems. You should
@@ -184,7 +187,7 @@ system.
 
 The most simple way to execute a program under the Open MPI system is
 to use either the ``mpirun`` or the ``mpiexec`` command. Both commands
-are symbloic links to the Open MPI backend that manages processes, and
+are symbolic links to the Open MPI back-end that manages processes, and
 we use ``mpirun`` here for our examples. 
 
 You can specify the number of processes to initiate using the ``--np``
@@ -198,7 +201,7 @@ following command:
    sh$ mpirun --np 5 myApplication
 
 This command will start five processes within the Open MPI run-time
-execution system, and the five procceses will load and execute copies
+execution system, and the five processes will load and execute copies
 of the program.
 
 You can specify which computers that will run the processes using the
@@ -260,10 +263,17 @@ cannot be executed because the host ``thingFour`` is not in the host file:
 
    sh$ mpirun --np 2 --hostfile hosts.txt --host thingOne,thingFour  myApplication
 
+The advantage to using both flags is that the ``--host`` flag can
+specify which hosts to use. The ``--hostfile`` flag can be used to
+provide a file name which contains details about the limits with
+respect to the number of processes that can be used on each
+machine. Taken together a general host file for a given system can be
+used for a wide variety of job submissions.
 
-========================
-High Level Introduction
-========================
+
+=============================
+Defining Optional Behaviors
+=============================
 
 .. todo::
    Give a more detailed introduction. Include some information about the
@@ -272,8 +282,34 @@ High Level Introduction
 .. todo:: 
    Discuss how to distribute processes across nodes or across slots.
 
-.. todo::
-   Add discussion on the following environment variables:
+
+-----------------------
+Environment Variables
+-----------------------
+
+.. index:: environment variables
+.. index:: OMPI_COMM_WORLD_SIZE
+.. index:: OMPI_COMM_WORLD_RANK
+.. index:: OMPI_COMM_WORLD_LOCAL_RANK
+.. index:: OMPI_UNIVERSE_SIZE
+.. index:: OMPI_COMM_WORLD_LOCAL_SIZE
+.. index:: OMPI_COMM_WORLD_NODE_RANK
+
+The local execution environment for a process includes copies of its
+own environment variables. These environment variables depend on what
+system is used to initiate the processes. For example, a system using
+SLURM may be different from one using XGrid. The environment is
+generally inherited from the user's shell, but some systems may not be
+consistent with this ideal.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Local Process Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A few select environment variables created by Open MPI are given
+below. These environment variables may be available to a process to
+allow the program to determine fine grain needs with respect to the
+whole set of processes in a given job.
 
    * OMPI_COMM_WORLD_SIZE - the number of processes in this process' MPI Comm_World
    * OMPI_COMM_WORLD_RANK - the MPI rank of this process
@@ -283,20 +319,70 @@ High Level Introduction
    * OMPI_COMM_WORLD_NODE_RANK - the relative rank of this process on
      this node looking across ALL jobs.
 
-.. todo:: 
-   Discuss starting up MPI connections lazy vs. immediate
 
-   * in the environment as OMPI_MCA_mpi_preconnect_mpi=1
-   * on the cmd line as mpirun -mca mpi_preconnect_mpi 1
+It is possible to have environment variables set using the ``-x`` flag
+on the ``mpirun`` command. The parser for this switch is somewhat
+primitive, though, and it cannot correctly use quoted values. It is
+recommended that environment variables be set in the process that
+initiates the request to spawn MPI processes using the local
+environment. 
 
-From Joshua Hursey: 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Setting Open MPI Parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Open MPI execution environment can be tuned and changed for a wide
+variety of settings. More details can be found in the :ref:`tuning
+parameters chapter.<chapter-tuning>` These parameters, specifically
+the parameters associated with the Modular Component Architecture
+(MCA) modules, can be set in different ways. One way to set these
+parameters is by setting local environment variables.
+
+The MCA parameters have two parts. The first part is the *key*, and
+the second part is the *value*. The key is used to identify the
+parameter, and the value is used to set determine the behavior
+associated with the modules that read the key. The format for the
+environment variables is given by
+
+.. code-block:: sh
+
+   OMPI_MCA_<key>=<value>
+
+For example, when a set of processes are initiated the processes can
+either wait to establish connections between processes until one
+begins to send messages. This is the default behavior since Open MPI
+cannot predict in advance what topology the programmer will
+assume. The processes will stay connected once the connections are
+established.
+
+Some applications require that all processes communicate with the
+other processes. A programmer who makes use of a *fully connected*
+topology may desire that those connections be created immediately once
+the processes have been created. The MCA parameter associated with
+this behavor is the ``mpi_preconnect_mpi`` parameter. If the
+programmer wishes to assume this behavior then the following parameter
+and value should be set in the environment that creates the processes:
+
+.. code-block :: sh
+
+   export OMPI_MCA_mpi_preconnect_mpi=1
+
+Another way to set this parameter is using the ``-mca`` flag on the
+``mpirun`` command. This flag takes two arguments, the key and the
+value in order. For example, to set the ``mpi_preconnect_mpi``
+parameter to ``True`` then a command may take the following form:
+
+.. code-block :: sh
+
+   mpirun -mca mpi_preconnect_mpi 1 -np 3 --host localhost myApplication
 
 
-|  A high level introduction to some MPI functionally would be nice,
-|  but I would not worry too much about the uglier corner cases of the
-|  API.
+..  A high level introduction to some MPI functionally would be nice,
+..  but I would not worry too much about the uglier corner cases of the
+..  API.
+..     -- Joshua Hursey
 
 
 
-
-
+..  LocalWords:  MPI literalinclude mpicc mpirun LSF SGE LoadLeveler
+..  LocalWords:  rsh SLURM XGrid Yod showme mpiexec hostfile todo
